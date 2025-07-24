@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { Search, MapPin, ShoppingCart, Menu, X } from 'lucide-react'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
+import { useCart } from '../hooks/useCart'
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { getTotalItems, toggleCart } = useCart()
 
   return (
     <header className="bg-white shadow-sm border-b sticky top-0 z-50">
@@ -43,11 +45,13 @@ export function Header() {
 
           {/* Cart & Mobile Menu */}
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="sm" className="relative">
+            <Button variant="ghost" size="sm" className="relative" onClick={toggleCart}>
               <ShoppingCart className="h-5 w-5" />
-              <span className="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                3
-              </span>
+              {getTotalItems() > 0 && (
+                <span className="absolute -top-2 -right-2 bg-primary text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {getTotalItems()}
+                </span>
+              )}
             </Button>
 
             {/* Mobile menu button */}

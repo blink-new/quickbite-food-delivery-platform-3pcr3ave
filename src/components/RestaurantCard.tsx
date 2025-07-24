@@ -11,19 +11,25 @@ interface RestaurantCardProps {
   deliveryTime: string
   deliveryFee: string
   isPromoted?: boolean
+  onClick?: (id: string) => void
 }
 
 export function RestaurantCard({
+  id,
   name,
   image,
   cuisine,
   rating,
   deliveryTime,
   deliveryFee,
-  isPromoted = false
+  isPromoted = false,
+  onClick
 }: RestaurantCardProps) {
   return (
-    <Card className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+    <Card 
+      className="group cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+      onClick={() => onClick?.(id)}
+    >
       <div className="relative overflow-hidden rounded-t-lg">
         <img
           src={image}
